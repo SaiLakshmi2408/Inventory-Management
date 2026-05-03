@@ -1,0 +1,80 @@
+package P1;
+public class Package_Demo {
+	static Product p[]=new Product[10];
+	
+	static int count= 0;
+	
+	public static void Add(int id,String name,int quan,double price) {
+		if (count < p.length) {
+            p[count] = new Product(id, name, quan, price);
+            count++;
+        } 
+		else {
+            System.out.println("Array is full!");
+        }
+		System.out.println("Added SuccessFully!!");
+	}
+public static void display(Product p[]) {
+
+	    for (int i = 0; i < count; i++) {
+	        System.out.println(p[i].getId() + "\t" + p[i].getName() + "\t" + p[i].getQuan() + "\t\t" + p[i].getPrice());
+	    }
+	}
+
+public static void update(int id, String newName, int newQuantity, double newPrice) {
+    boolean found = false;
+    for (int i = 0; i < count; i++) {
+        if (p[i].getId() == id) {
+            p[i].setName(newName); 
+            p[i].setQuan(newQuantity);
+            p[i].setPrice(newPrice); 
+            found = true;
+            System.out.println("Package with ID " + id + " updated.");
+            break;
+        }
+    }
+    if (!found) {
+        System.out.println("Package with ID " + id + " not found.");
+    }
+}
+
+public static void delete(int id) {
+    boolean found = false;
+
+    for (int i = 0; i < count; i++) {
+        if (p[i].getId() == id) {
+            
+            for (int j = i; j < count - 1; j++) {
+                p[j] = p[j + 1];
+            }
+            p[count - 1] = null; 
+            count--; 
+            found = true;
+            System.out.println("Package with ID " + id + " deleted.");
+            break;
+        }
+    }
+
+    if (!found) {
+        System.out.println("Package with ID " + id + " not found.");
+    }
+}
+
+
+
+	public static void main(String[] args) {
+		System.out.println("Adding of Inventory");
+		Add(101, "Box", 5, 25.50);
+        Add(102, "Bag", 10, 12.75);
+		System.out.println("Display");
+        
+        	display(p);
+        	
+        	update(101,"Bat",3,200.00);
+        	
+        	delete(102);
+        	System.out.println("Display");
+        	display(p);
+	}
+
+}
